@@ -1,10 +1,8 @@
-import { getServerSession } from 'next-auth';
+import { getSession } from 'next-auth/react';
 import { NextApiRequest, NextApiResponse } from 'next';
-import { authConfig } from '../../auth.config';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  // Doğrudan req nesnesini parametre olarak geçin
-  const session = await getServerSession(req, res, authConfig);
+  const session = await getSession({ req });
 
   if (!session) {
     return res.status(401).json({ message: 'Unauthorized' });
