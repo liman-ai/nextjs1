@@ -1,4 +1,7 @@
 // auth.ts
+import { getSession } from 'next-auth/react';
+import { getServerSession } from 'next-auth/next';
+import { NextApiRequest, NextApiResponse } from 'next';
 
 import NextAuth from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
@@ -93,3 +96,14 @@ export const { auth, signIn, signOut } = NextAuth({
     strategy: 'jwt',
   }
 });
+
+export async function getAuthSession(
+  req?: NextApiRequest,
+  res?: NextApiResponse
+) {
+  if (req && res) { // Sunucu tarafındaysa
+    return await getServerSession(req, res, authConfig);
+  } else { // İstemci tarafındaysa
+    return await getSession();
+  }
+}
