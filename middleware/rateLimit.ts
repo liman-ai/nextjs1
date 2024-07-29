@@ -5,7 +5,7 @@ const QUERY_LIMIT = 1; // Günlük sorgu limiti
 const DAY_IN_SECONDS = 86400; // 24 saat
 
 export async function rateLimitMiddleware(req: NextRequest) {
-  const userKey = req.ip;
+  const userKey = req.ip || 'unknown_ip';
 
   const queryCount = await getQueryCount(userKey);
 
