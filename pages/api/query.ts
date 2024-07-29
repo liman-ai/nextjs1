@@ -1,4 +1,4 @@
-import { getAuthSession } from '../../utils/auth';
+import { getAuthSession } from '../../auth';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
