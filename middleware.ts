@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { rateLimitMiddleware } from './middleware/rateLimit';
 import NextAuth from 'next-auth';
 import { authConfig } from './auth.config';
-import { rateLimitMiddleware } from './middleware/rateLimit';
 
 export default async function middleware(req: NextRequest) {
   // Rate limiting kontrolü
@@ -11,10 +11,15 @@ export default async function middleware(req: NextRequest) {
   }
 
   // Kimlik doğrulama kontrolü
-  return NextAuth(authConfig).auth(req, NextResponse.next());
+  const authResponse = await NextAuth(authConfig).auth(req, NextResponse.next());
+  if (authResponse.status === 401) {
+    return authResponse;
+  }
+
+  return authResponse;
 }
 
 // Middleware'in uygulanacağı yolları belirleyin
 export const config = {
-  matcher: ['/((?!api|_next/static|_next/image|.*\\.png$).*)', '/api/query']
+  matcher: ['/((?!api|_next/static|_next/image|.*\\.png$).*)', '/api/query'],
 };
