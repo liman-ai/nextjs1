@@ -101,7 +101,7 @@ export async function getAuthSession(
   res?: NextApiResponse
 ) {
   if (req && res) { // Sunucu tarafındaysa
-    return await getServerSession(req, res, authConfig);
+    return await getSession({ req });
   } else { // İstemci tarafındaysa
     return await getSession();
   }
