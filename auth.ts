@@ -1,6 +1,5 @@
 import { getServerSession } from 'next-auth/next';
 import { NextApiRequest, NextApiResponse } from 'next';
-import { authConfig } from './auth.config';
 
 import NextAuth from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
