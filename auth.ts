@@ -1,4 +1,4 @@
-import { getServerSession } from "next-auth/react";
+import { getServerSession } from "next-auth/next";
 import { NextApiRequest, NextApiResponse } from 'next';
 
 import NextAuth from 'next-auth';
