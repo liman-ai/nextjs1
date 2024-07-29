@@ -100,8 +100,9 @@ export async function getAuthSession(
   req?: NextApiRequest,
   res?: NextApiResponse
 ) {
-  if (req && res) { // Sunucu tarafındaysa
-    return await getSession({ req });
+  if (req) { // Sunucu tarafındaysa
+    const session = await getSession({ req: { headers: req.headers } });
+    return session;
   } else { // İstemci tarafındaysa
     return await getSession();
   }
