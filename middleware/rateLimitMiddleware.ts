@@ -1,4 +1,4 @@
-import { rateLimitMiddleware } from './middleware/rateLimit';
+import { rateLimitMiddleware } from './rateLimit'; 
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function middleware(req: NextRequest) {
