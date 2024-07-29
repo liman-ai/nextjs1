@@ -1,4 +1,4 @@
-import { getServerSession } from 'next-auth/next';
+import { getServerSession } from 'next-auth';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { authConfig } from '../../auth.config';
 
