@@ -8,7 +8,7 @@ export async function rateLimitMiddleware(req: NextRequest) {
   const userKey = req.ip;
 
   const queryCount = await getQueryCount(userKey);
-  
+
   if (queryCount >= QUERY_LIMIT) {
     return new Response('Rate limit exceeded', { status: 429 });
   } else {
