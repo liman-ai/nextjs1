@@ -1,4 +1,4 @@
-import { getToken } from 'next-auth/jwt';
+import { getSession } from 'next-auth/react';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 import NextAuth from 'next-auth';
@@ -95,15 +95,11 @@ export const { auth, signIn, signOut } = NextAuth({
   }
 });
 
-export async function getAuthSession(
-  req?: NextApiRequest,
-  res?: NextApiResponse
-) {
+export async function getAuthSession(req?: NextApiRequest, res?: NextApiResponse) {
   if (req) { // Sunucu tarafındaysa
-    const token = await getToken({ req, secret: process.env.JWT_SECRET });
-    return token ? { user: { email: token.email } } : null;
-  } else { // İstemci tarafındaysa
-    const session = await getSession();
+    const session = await getSession({ req });
     return session;
+  } else { // İstemci tarafındaysa
+    return await getSession();
   }
 }
