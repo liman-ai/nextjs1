@@ -1,5 +1,6 @@
-import { getSession } from 'next-auth/react';
+import { getServerSession } from 'next-auth/next';
 import { NextApiRequest, NextApiResponse } from 'next';
+import { authConfig } from './auth.config';
 
 import NextAuth from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
@@ -96,10 +97,10 @@ export const { auth, signIn, signOut } = NextAuth({
 });
 
 export async function getAuthSession(req?: NextApiRequest, res?: NextApiResponse) {
-  if (req) { // Sunucu tarafındaysa
-    const session = await getSession({ req });
-    return session;
-  } else { // İstemci tarafındaysa
-    return await getSession();
+  if (req && res) { // Sunucu tarafındaysa
+    return await getServerSession(req, res, authConfig);
+  } else {
+    // İstemci tarafında bu fonksiyon çağrılmayacak.
+    throw new Error("getAuthSession sadece sunucu tarafında kullanılabilir.");
   }
 }
