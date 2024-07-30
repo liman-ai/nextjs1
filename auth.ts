@@ -1,5 +1,4 @@
-import { getServerSession } from "next-auth/next";
-import { NextApiRequest, NextApiResponse } from 'next';
+// auth.ts
 
 import NextAuth from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
@@ -94,12 +93,3 @@ export const { auth, signIn, signOut } = NextAuth({
     strategy: 'jwt',
   }
 });
-
-export async function getAuthSession(req?: NextApiRequest, res?: NextApiResponse) {
-  if (req && res) { // Sunucu tarafındaysa
-    return await getServerSession(req, res, authConfig);
-  } else {
-    // İstemci tarafında bu fonksiyon çağrılmayacak.
-    throw new Error("getAuthSession sadece sunucu tarafında kullanılabilir.");
-  }
-}
