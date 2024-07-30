@@ -18,20 +18,7 @@ export default async function IndexPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('/api/chat', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ messages: /* mesajlarınızı ekleyin */ })
-      });
-
-      if (response.status === 429) {
-        const retryAfter = response.headers.get('X-RateLimit-Reset');
-        toast.error(`You have reached your request limit. Try again after ${retryAfter} seconds.`);
-      } else {
-        // Diğer işlemler
-      }
+     
     } catch (error) {
       toast.error(`Error: ${error.message}`);
     }
